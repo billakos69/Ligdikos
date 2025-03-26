@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Πώληση Εισιτηρίων Ποδοσφαίρου</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="tick.css">
+    <link rel="icon" type="image/png" href="img/ligdikos.png">
+
+    <style>
+        /* Styling για το countdown και το γκρι overlay */
+        .overlay-gray {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2; /* Κάνει το overlay να είναι πάνω από τα υπόλοιπα */
+            text-align: center;
+            display: block; /* Το overlay είναι πάντα ορατό */
+        }
+
+        .overlay-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .countdown {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .ticket-card {
+            position: relative;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .cart-popup button {
+            background-color: #e21e26;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .cart-popup button:hover {
+            background-color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <img src="img/ligdikos.png" alt="Team Logo">
+            <h1>LIGDIKOS FC</h1>
+        </div>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="players.html">Team</a>
+            <a href="stuff.html">Stuff</a>
+            <a href="matches.html">Matches</a>
+            <a href="eshop.html">Eshop</a>
+            <a href="news.html">News</a>
+            <a href="tickets.html">Tickets</a>
+        </nav>
+        <div class="cart-bubble" onclick="toggleCartPopup()">
+            <span class="cart-icon">🛒</span>
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </header>
+
+    <section class="ticket-section">
+        <h2>Διαθέσιμα Εισιτήρια</h2>
+        <div class="grid">
+            <div class="ticket-card">
+                <h3>Ligdikos - Avgouliako </h3>
+                <p>10 Μαρτίου 2025 - <span class="ticket-price" id="price-olympiakos">30€</span></p>
+                <button onclick="openTicketPopup('Ligdikos - Avgouliako', 30)">Προσθήκη</button>
+            </div>
+
+            <div class="ticket-card">
+                <h3>Mprousko - Ligdikos</h3>
+                <p>15 Μαρτίου 2025 - <span class="ticket-price" id="price-aek">25€</span></p>
+                <button onclick="openTicketPopup('Mprousko - Ligdikos', 25)">Προσθήκη</button>
+                <div class="overlay-gray" id="overlayAek">
+                    <div class="overlay-content">
+                        ΠΡΟΣΕΧΩΣ
+                        <div id="countdownAek" class="countdown"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ticket-card">
+                <h3>Stoumpa - Ligdikos</h3>
+                <p>27 Μαρτίου 2025 - <span class="ticket-price" id="price-aris">20€</span></p>
+                <button onclick="openTicketPopup('Stoumpa - Ligdikos', 20)">Προσθήκη</button>
+                <div class="overlay-gray" id="overlayAris">
+                    <div class="overlay-content">
+                        ΠΡΟΣΕΧΩΣ
+                        <div id="countdownAris" class="countdown"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <!-- Pop-up για την επιλογή θύρας και ποσότητας -->
+  <div class="overlay" id="overlay" onclick="closeTicketPopup()"></div>
+  <div class="ticket-popup" id="ticketPopup">
+      <h3>Επιλογή Θύρας και Ποσότητας</h3>
+      <p>Εισιτήριο για: <span id="match-name"></span></p>
+      <label for="section">Επιλέξτε Θύρα:</label>
+      <select id="section" onchange="updateTicketPrice()">
+          <option value="1">Θύρα 1 - 30€</option>
+          <option value="2">Θύρα 2 - 25€</option>
+          <option value="3">Θύρα 3 - 20€</option>
+      </select>
+      <label for="quantity">Πόσα Εισιτήρια:</label>
+      <input type="number" id="quantity" min="1" value="1" onchange="updateTicketPrice()">
+      <p id="finalPrice">Τιμή: 30€</p>
+      <button onclick="addToCartFromPopup()">Προσθήκη στο Καλάθι</button>
+      <button onclick="closeTicketPopup()">Κλείσιμο</button>
+  </div>
+
+    <!-- Καλάθι -->
+    <div class="overlay" id="overlayCart" onclick="closeCartPopup()"></div>
+    <div class="cart-popup" id="cartPopup">
+        <div class="cart-header">
+            <h3>Το Καλάθι σας</h3>
+        </div>
+        <ul id="cartItems"></ul>
+        <button onclick="checkout()">Ολοκλήρωση Αγοράς</button>
+        <button onclick="closeCartPopup()">Κλείσιμο</button>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+        // Χρονομέτρηση αντίστροφης μέτρησης (countdown) για τα παιχνίδια
+        function startCountdown(targetDate, elementId) {
+            const countdownElement = document.getElementById(elementId);
+            
+            const countdownInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                // Υπολογισμός ημερών, ωρών, λεπτών και δευτερολέπτων
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+                countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+                // Αν η αντίστροφη μέτρηση τελειώσει
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.innerHTML = "Εναρξη αγώνα!";
+                }
+            }, 1000);
+        }
+
+        // Εκκίνηση της αντίστροφης μέτρησης για κάθε αγώνα
+        window.onload = function() {
+            startCountdown(new Date('March 15, 2025 21:00:00').getTime(), 'countdownAek');
+            startCountdown(new Date('March 27, 2025 22:00:00').getTime(), 'countdownAris');
+            updateCartCount();
+        };
+
+        // Άνοιγμα του Pop-up με τις επιλογές για το εισιτήριο
+        function openTicketPopup(match, basePrice) {
+            document.getElementById('match-name').innerText = match;
+            document.getElementById('ticketPopup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('finalPrice').innerText = `Τιμή: ${basePrice}€`;
+            document.getElementById('quantity').value = 1;
+            document.getElementById('section').value = "1";
+        }
+
+        // Ενημέρωση τιμής εισιτηρίου με βάση την επιλογή θύρας και ποσότητας
+        function updateTicketPrice() {
+            const section = document.getElementById('section').value;
+            const quantity = document.getElementById('quantity').value;
+            let price = 30; // Προεπιλογή (Θύρα 1)
+
+            if (section == '2') {
+                price = 25; // Θύρα 2
+            } else if (section == '3') {
+                price = 20; // Θύρα 3
+            }
+
+            const finalPrice = price * quantity;
+            document.getElementById('finalPrice').innerText = `Τιμή: ${finalPrice}€`;
+        }
+
+        // Προσθήκη στο καλάθι από το Pop-up
+        function addToCartFromPopup() {
+            const match = document.getElementById('match-name').innerText;
+            const section = document.getElementById('section').value;
+            const quantity = document.getElementById('quantity').value;
+            let price = 30; // Προεπιλογή (Θύρα 1)
+
+            if (section == '2') {
+                price = 25; // Θύρα 2
+            } else if (section == '3') {
+                price = 20; // Θύρα 3
+            }
+
+            if (cart[match]) {
+                cart[match].quantity += parseInt(quantity);
+            } else {
+                cart[match] = { price, quantity: parseInt(quantity) };
+            }
+
+            // Αποθήκευση στο localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            updateCartCount();
+            closeTicketPopup();
+        }
+
+        // Προσθήκη στο καλάθι (εκτός του Pop-up)
+        function addToCart(match, price) {
+            const quantity = 1;  // Προεπιλογή 1 για την ποσότητα
+            if (cart[match]) {
+                cart[match].quantity += quantity;
+            } else {
+                cart[match] = { price, quantity };
+            }
+
+            // Αποθήκευση στο localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            updateCartCount();  // Ενημέρωση του αριθμού των στοιχείων στο καλάθι
+        }
+
+        // Ενημέρωση του αριθμού των στοιχείων στο καλάθι
+        function updateCartCount() {
+            const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').innerText = totalItems;
+        }
+
+        // Εμφάνιση / Απόκρυψη του καλαθιού
+        function toggleCartPopup() {
+            const popup = document.getElementById('cartPopup');
+            const overlay = document.getElementById('overlayCart');
+            const cartItems = document.getElementById('cartItems');
+
+            if (popup.style.display === 'block') {
+                // Κλείσιμο του καλαθιού
+                popup.style.display = 'none';
+                overlay.style.display = 'none';
+            } else {
+                // Άνοιγμα του καλαθιού
+                cartItems.innerHTML = '';
+                for (const match in cart) {
+                    const { price, quantity } = cart[match];
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <span>${match} (x${quantity})</span> 
+                        <span>${price * quantity}€</span> 
+                        <span class="remove-item" onclick="removeItemFromCart('${match}')">❌</span>
+                    `;
+                    cartItems.appendChild(li);
+                }
+                popup.style.display = 'block';
+                overlay.style.display = 'block';
+            }
+        }
+
+        // Κλείσιμο του καλαθιού μέσω του overlay
+        function closeCartPopup() {
+            document.getElementById('cartPopup').style.display = 'none';
+            document.getElementById('overlayCart').style.display = 'none';
+        }
+
+        // Αφαίρεση από το καλάθι
+        function removeItemFromCart(match) {
+            delete cart[match];
+            localStorage.setItem('cart', JSON.stringify(cart)); // Ενημερώνουμε το localStorage
+            updateCartCount(); // Ενημέρωση του αριθμού των στοιχείων
+            toggleCartPopup(); // Εμφάνιση του καλαθιού
+        }
+
+        // Ολοκλήρωση αγοράς
+function checkout() {
+    window.location.href = 'checkout.html'; // Οδηγεί σε άλλη σελίδα ολοκλήρωσης αγοράς
+}
+
+
+        // Κλείσιμο του Pop-up
+        function closeTicketPopup() {
+            document.getElementById('ticketPopup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

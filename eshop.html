@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ligdikos FC Eshop</title>
+    <link rel="stylesheet" href="eshop.css">
+    <link rel="icon" type="image/png" href="img/ligdikos.png">
+
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">
+        <img src="img/ligdikos.png" alt="Team Logo">
+        <h1>LIGDIKOS FC</h1>
+    </div>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="players.html">Team</a>
+        <a href="stuff.html">Stuff</a>
+        <a href="matches.html">Matches</a>
+        <a href="eshop.html">Eshop</a>
+        <a href="news.html">News</a>
+        <a href="tickets.html">Tickets</a>
+    </nav>
+</header>
+
+<!-- Cart Bubble -->
+<div class="cart-bubble" onclick="toggleCartDropdown()">
+    🛒<span id="cart-count">0</span>
+</div>
+
+<!-- Cart Dropdown -->
+<div class="cart-dropdown" id="cartDropdown">
+    <h3>Το καλάθι μου</h3>
+    <div id="cart-items"></div>
+    <div class="cart-actions">
+        <button onclick="clearCart()">Άδειασμα Καλαθιού</button>
+        <button onclick="checkout()">Ολοκλήρωση Παραγγελίας</button>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="product" data-id="1">
+        <a href="product.html?id=1">
+            <img src="img/home1.jpg" alt="Φανέλα Εντός">
+        </a>
+        <h3>Φανέλα Εντός</h3>
+        <p>€50</p>
+    </div>
+
+    <div class="product" data-id="2">
+        <a href="product.html?id=2">
+            <img src="img/away1.png" alt="Φανέλα Εκτός">
+        </a>
+        <h3>Φανέλα Εκτός</h3>
+        <p>€50</p>
+    </div>
+
+    <div class="product" data-id="3">
+        <a href="product.html?id=3">
+            <img src="img/third.png" alt="3η Φανέλα">
+        </a>
+        <h3>3η Φανέλα</h3>
+        <p>€50</p>
+    </div>
+
+    <div class="product" data-id="4">
+        <a href="product.html?id=4">
+            <img src="img/kaskol.png" alt="Κασκόλ">
+        </a>
+        <h3>Κασκόλ</h3>
+        <p>€20</p>
+    </div>
+
+    <div class="product" data-id="5">
+        <a href="product.html?id=5">
+            <img src="img/mpoufan.png" alt="Μπουφάν">
+        </a>
+        <h3>Μπουφάν</h3>
+        <p>€80</p>
+    </div>
+
+    <div class="product" data-id="6">
+        <a href="product.html?id=6">
+            <img src="img/kapelo.png" alt="Καπέλο">
+        </a>
+        <h3>Καπέλο</h3>
+        <p>€20</p>
+    </div>
+
+</div>
+
+<div class="contact-bubble">
+    <button class="bubble-btn" onclick="toggleContactForm()">Contact Us</button>
+    <div class="contact-form-bubble" id="contactFormBubble">
+        <h3>Contact Us</h3>
+        <form action="https://formspree.io/f/mblgrddg" method="POST">  <!-- Βάλε το σωστό form ID -->
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>&copy; 2025 Ligdikos FC. All rights reserved.</p>
+    <div class="socials">
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+    </div>
+</footer>
+
+<script src="eshop.js"></script>
+<script src="cart.js"></script>
+
+</body>
+</html>

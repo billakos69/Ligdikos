@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout - Ligdikos FC Eshop</title>
+    <link rel="icon" type="image/png" href="img/ligdikos.png">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .checkout-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        input, textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        button {
+            background-color: #e21e26;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #c71b22;
+        }
+        .product-list img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .product-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .product-details {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="checkout-container">
+    <h2>Αποστολή Παραγγελίας</h2>
+
+    <div class="product-list" id="productList"></div>
+
+    <form action="https://formspree.io/f/mblgrddg" method="POST" id="checkoutForm">
+        <input type="text" name="name" placeholder="Ονοματεπώνυμο" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="address" placeholder="Διεύθυνση" required></textarea>
+
+        <!-- Κρυφό πεδίο για τα προϊόντα -->
+        <input type="hidden" name="orderDetails" id="orderDetails">
+
+        <button type="submit">Αποστολή Παραγγελίας</button>
+        <button type="button" onclick="clearCart()">Καθαρισμός Καλαθιού</button>
+    </form>
+</div>
+
+<script>
+    const productList = document.getElementById('productList');
+    const orderDetailsField = document.getElementById('orderDetails');
+    const checkoutForm = document.getElementById('checkoutForm');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderCart() {
+        productList.innerHTML = '';
+        let orderSummary = '';
+
+        if (cart.length === 0) {
+            productList.innerHTML = '<p>Το καλάθι είναι άδειο.</p>';
+            orderDetailsField.value = 'Το καλάθι είναι άδειο.';
+            return;
+        }
+
+        cart.forEach(item => {
+            const productDiv = document.createElement('div');
+            productDiv.className = 'product-item';
+
+            productDiv.innerHTML = `
+                <img src="${item.image}" alt="${item.name}">
+                <div class="product-details">
+                    <strong>${item.name}</strong><br>
+                    Ποσότητα: ${item.quantity}<br>
+                    Τιμή: €${item.price}
+                </div>
+            `;
+
+            productList.appendChild(productDiv);
+
+            // Προσθήκη στο κείμενο της παραγγελίας
+            orderSummary += `${item.quantity}x ${item.name} - €${item.price}\n`;
+        });
+
+        // Καταχώρηση στο κρυφό πεδίο
+        orderDetailsField.value = orderSummary;
+    }
+
+    function clearCart() {
+        localStorage.removeItem('cart');
+        renderCart();
+    }
+
+    // Την ώρα που υποβάλλεται η φόρμα, τσεκάρει αν το καλάθι είναι άδειο
+    checkoutForm.addEventListener('submit', function(event) {
+        if (cart.length === 0) {
+            alert('Το καλάθι είναι άδειο. Προσθέστε προϊόντα πριν υποβάλετε την παραγγελία.');
+            event.preventDefault();
+            return;
+        }
+    });
+
+    window.onload = renderCart;
+</script>
+
+</body>
+</html>

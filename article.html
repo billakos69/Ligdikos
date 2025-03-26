@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Πλήρες Άρθρο - Ligdikos FC</title>
+    <link rel="stylesheet" href="news.css">
+    <link rel="icon" type="image/png" href="img/ligdikos.png">
+
+    <style>
+        /* Βασικό layout */
+        * 
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            flex: 1;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+       
+
+        .header .nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .news-media {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .news-media img, .news-media video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .article-content {
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+
+        .footer {
+            margin-top: auto;
+        }
+
+       
+
+       
+    </style>
+    <script>
+       document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const articleId = urlParams.get('id');
+
+    const articles = {
+        "1": {
+            title: "Mprousko - Ligdikos 0-1: Διπλό τίτλου στο Kotetsi Stadium",
+            content: `<p>Ο Ligdikos πήρε τους τρεις βαθμούς της νίκης στο Ampeli Stadium, απέναντι στο Mprousko στο ντέρμπι της 20ης αγωνιστικής και παρέμεινε στην κορυφή της βαθμολογίας, με το «Tsampi» να βρίσκεται έξι βαθμούς πίσω. Η προηγούμενη ήττα του Mprouskou εντός έδρας στο πρωτάθλημα ήταν πάλι από τον Ligdiko, στις 12/3/23.</p>
+                      <p><b>Τα πλάνα των προπονητών:</b></p>
+                      <p>To Mprousko ξεκίνησε με τρία στόπερ,<b> Γιαννακη, Λουαλουα,</b> σε διάταξη που μπορεί να χαρακτηριστεί 3-4-3. Τετράδα στην μεσαία γραμμή,<b> Ουγκα, Μπουγκα, Σλειβ και Λακη με Ουκγα και Μπουγκα </b> να γυρνούν στην άμυνα, ενώ<b> Κασηδιαρης Κουλης και Αδωνης </b> ήταν η επιθετική τριάδα. Για τον Ligdiko,<b> ο Χασαρης </b> ξεκίνησε κάτω από τα δοκάρια, στην άμυνα βρίσκονταν οι <b>Θεοδωρίδης, Κωνσταντινίδης, Καρασαρίδης, Ink,</b> αμυντικά χαφ ήταν οι<b> Λεγκομαν και Λιγδας</b>, ενώ μεσοεπιθετικά βρίσκονταν οι<b> Μελαχρος, Πολυχρονιδης, Σαριντζιωτης και Παππος.</b></p>`,
+            mediaType: "image",
+            mediaSrc: "img/news 1.jpg"
+        },
+
+
+        "2": {
+            title: "Έκλεισε η μεταγραφή του Χαγιατε στο Ligdiko",
+            content: `<p><b>Ο Ελλιν επιθετικός της ομάδας του Παρισιού λογίζεται πλέον ως παίκτης του συλλόγου του Ligdikou και αναμένεται να ανακοινωθεί άμεσα </b></p>
+                        <p>Ο Χαγιατε έχει ήδη συμφωνήσει με την διοίκηση του Ligdikou και αναμένεται να υπογράψει συμβόλαιο συνεργασίας για τα επόμενα τρία χρόνια. Οι διαπραγματεύσεις ήταν πολύ δύσκολες και<b> η μεταγραφή έκλεισε στα 25 εκατομμύρια ευρώ.</b></p>
+                        <p>Ο Χαγιατε θα ενισχύσει την επιθετική γραμμή του Ligdikou και αναμένεται να ανακοινωθεί άμεσα από την διοίκηση του συλλόγου.Ο Ελλιν επιθετικός έχει αγωνιστεί σε ομάδες όπως η <b>Παρί Σεν Ζερμέν, η Μπαρτσελόνα και η Μπάγερν Μονάχου.</b></p>`,
+            mediaType: "image",
+            mediaSrc: "img/hayat.jpg"
+        }, 
+
+        "3": {
+            title: "Τέλος για φέτος τον Κρις",
+            content: `<p>Συγκεκριμένα, ο ρεπόρτερ της ομάδας μίλησε <b>για την κατάσταση του Κρις,</b> μετέφερε την πληροφορία πως η μαγνητική που έκανε χθες το βράδυ έδειξε πως <b> έχει όντως υποστεί ρήξη χιαστού </b> και άρα χάνει όλη τη σεζόν.</p>
+                        <p>Από <b> αύριο θα ξέρουμε πού και πότε</b> θα κάνει την επέμβαση. Μάλιστα, υπενθύμισε πως είναι η δεύτερη φορά που έχει ανάλογο τραυματισμό ο διεθνής Τούρκος, καθώς η πρώτη ήταν τα Χριστούγεννα του 2019 με τη Λιλ, όταν και πάλι είχε περάσει ως αλλαγή σε ματς και τραυματίστηκε, όπως κακή ώρα χθες.</p>
+                        Από εκεί και πέρα, <b>όσον αφορά το παιχνίδι με τον OGE</b> είπε πως όταν έχεις μόνο δύο διακριθέντες, τον Άρτεμο και τον Αλέξανδρο, δεν μπορείς να έχεις αξιώσεις να κάνεις «διπλό» απέναντι σε μία σκληροτράχηλη ομάδα, όπως ο OGE, και σχολίασε ότι η εικόνα των μεταγραφών του καλοκαιριού είναι από μέτρια έως απογοητευτική.</p>`,
+            mediaType: "image",
+            mediaSrc: "img/chris.jpg"
+        },
+
+            };
+
+    const article = articles[articleId] || {
+        title: "Άρθρο μη διαθέσιμο",
+        content: "<p>Το άρθρο που ζητήσατε δεν υπάρχει ή έχει αφαιρεθεί.</p>",
+        mediaType: "image",
+        mediaSrc: "https://via.placeholder.com/800x400?text=No+Article"
+    };
+
+    document.getElementById("article-title").innerText = article.title;
+    // Εδώ χρησιμοποιούμε innerHTML για να εισάγουμε τις παραγράφους κανονικά
+    document.getElementById("article-content").innerHTML = article.content;
+
+    const mediaContainer = document.getElementById("news-media");
+    if (article.mediaType === "image") {
+        mediaContainer.innerHTML = `<img src="${article.mediaSrc}" alt="${article.title}">`;
+    } else if (article.mediaType === "video") {
+        mediaContainer.innerHTML = `<video controls><source src="${article.mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`;
+    }
+});
+
+    </script>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">
+        <h1>LIGDIKOS FC</h1>
+    </div>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="players.html">Team</a>
+        <a href="stuff.html">Stuff</a>
+        <a href="matches.html">Matches</a>
+        <a href="eshop.html">Eshop</a>
+        <a href="news.html">News</a>
+        <a href="tickets.html">Tickets</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h1 id="article-title">Φόρτωση...</h1>
+
+    <div class="news-media" id="news-media">
+        <!-- Εδώ μπαίνει εικόνα ή βίντεο δυναμικά -->
+    </div>
+
+    <div class="article-content">
+        <p id="article-content">Φόρτωση...</p>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>&copy; 2025 Ligdikos FC. All rights reserved.</p>
+    <div class="socials">
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Team - Official Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="players.css">
+    <link rel="icon" type="image/png" href="img/ligdikos.png">
+
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <img src="img/ligdikos.png" alt="Team Logo">
+            <h1>LIGDIKOS FC</h1>
+        </div>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="players.html">Team</a>
+            <a href="stuff.html">Stuff</a>
+            <a href="matches.html">Matches</a>
+            <a href="eshop.html">Eshop</a>
+            <a href="news.html">News</a>
+            <a href="tickets.html">Tickets</a>
+        </nav>
+    </header>
+
+<main class="squad-container">
+
+    <!-- Τερματοφύλακες -->
+    <section class="position-group">
+        <h2>Προπονητής</h2>
+        <div class="players-grid">
+            <div class="player-card" onclick="showPlayerInfo('player1')">
+                <img src="img/parasxos1.png" alt="Player 1">
+                <p>Γιώργος Παράσχος</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Αμυντικοί -->
+    <section class="position-group">
+        <h2>Τεχνικός Διευθυντής</h2>
+        <div class="players-grid">
+            <div class="player-card" onclick="showPlayerInfo('player3')">
+                <img src="img/takis.png" alt="Player 3">
+                <p>Τάκης Λεμονής</p>
+            </div>
+           
+        </div>
+    </section>
+
+    <!-- Μέσοι -->
+    <section class="position-group">
+        <h2>Τεχνικό Επιτελείο</h2>
+        <div class="players-grid">
+            <div class="player-card" onclick="showPlayerInfo('player7')">
+                <img src="img/arteta1.png" alt="Player 7">
+                <p>Mikel Arteta</p>
+            </div>
+            <div class="player-card" onclick="showPlayerInfo('player8')">
+                <img src="img/nigg.png" alt="Player 8">
+                <p>Joseph Kwame Mintah</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Επιθετικοί -->
+    <section class="position-group">
+        <h2>Φυσιοθεραπευτές</h2>
+        <div class="players-grid">
+            <div class="player-card" onclick="showPlayerInfo('player10')">
+                <img src="img/jonny.png" alt="Player 10">
+                <p>Johnny Sins</p>
+            </div>
+            <div class="player-card" onclick="showPlayerInfo('player11')">
+                <img src="img/black.png" alt="Player 11">
+                <p>Jamie Nig Black</p>
+            </div>
+          
+        </div>
+    </section>
+
+</main>
+
+
+<!-- Popup Πληροφοριών Παίκτη -->
+<div class="player-popup" id="player-popup">
+    <div class="popup-content">
+        <span class="close-btn" onclick="closePlayerInfo()">&times;</span>
+        <h3 id="player-name"></h3>
+
+        <div class="player-image-container">
+            <img src="" alt="Player Image" id="player-image">
+            <img src="" alt="Player Hover Image" id="player-hover-image" class="hover-image">
+        </div>
+
+        <ul class="player-stats">
+            <li><strong>Ρόλος:</strong> <span id="player-position"></span></li>
+            <li><strong>Ηλικία:</strong> <span id="player-age"></span></li>
+            <li><strong>Τόπος Γέννησης:</strong> <span id="player-matches"></span></li>
+            <li><strong>Εθνικότα:</strong> <span id="player-goals"></span></li>
+            <li><strong>Ημερ/νία ένταξης ομάδας:</strong> <span id="player-assists"></span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="contact-bubble">
+    <button class="bubble-btn" onclick="toggleContactForm()">Contact Us</button>
+    <div class="contact-form-bubble" id="contactFormBubble">
+        <h3>Contact Us</h3>
+        <form action="https://formspree.io/f/mblgrddg" method="POST">  <!-- Βάλε το σωστό form ID -->
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+</div>
+
+<script src="stuff.js"></script>
+
+<footer class="footer">
+    <p>&copy; 2025 Ligdikos FC. All rights reserved.</p>
+    <div class="socials">
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+    </div>
+</footer>
+
+</body>
+</html>
